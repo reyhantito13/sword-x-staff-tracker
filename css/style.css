@@ -750,3 +750,55 @@ details > summary {
   cursor: pointer;
   margin: 8px 0;
 }
+
+/* ===== Panduan penggunaan (intro) ===== */
+.hbtn {
+  width: 30px;
+  height: 30px;
+  margin-left: 4px;
+  border: 1px solid var(--ac);
+  border-radius: 50%;
+  background: var(--ac);
+  color: var(--ac2);
+  font-weight: 700;
+  line-height: 1;
+  cursor: pointer;
+}
+.hbtn:focus-visible,
+.intro .btn:focus-visible {
+  outline: 2px solid var(--tx);
+  outline-offset: 2px;
+}
+.intro p {
+  margin: 6px 0;
+}
+.intro ul {
+  margin: 6px 0;
+  padding-left: 18px;
+}
+.intro li {
+  margin: 5px 0;
+}
+.idots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin: 14px 0 10px;
+}
+.idots i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ln);
+}
+.idots i.on {
+  background: var(--ac);
+}
+.inav {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.inav .sp {
+  flex: 1;
+}
