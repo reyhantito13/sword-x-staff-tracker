@@ -2687,7 +2687,7 @@ function fixNames() {
 }
 var TFR = null,
   TFT = "",
-  TOOLS = ["Power", "Vine", "Key", "Bor"];
+  TOOLS = ["Power", "Vine", "Key", "Drill"];
 function latestRegion(a) {
   var td = diff(a.created, gd()) + 1,
     best = null,

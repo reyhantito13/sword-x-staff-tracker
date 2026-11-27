@@ -83,7 +83,7 @@
         tab: "todo",
         b:
           "<ul>" +
-          "<li><b>To-do</b> adalah daftar tugas per akun. Beri region dan tool (Power, Vine, Key, Bor), lalu centang jika selesai.</li>" +
+          "<li><b>To-do</b> adalah daftar tugas per akun. Beri region dan tool (Power, Vine, Key, Drill), lalu centang jika selesai.</li>" +
           "<li><b>Gift Code</b> menyimpan daftar kode. Centang akun yang sudah meredeem, salin kode dengan <b>⧉</b>. Kode otomatis pindah ke Kedaluwarsa setelah tanggalnya lewat.</li>" +
           "</ul>",
       },
@@ -147,7 +147,7 @@
         tab: "todo",
         b:
           "<ul>" +
-          "<li><b>To-do</b> is a per-account task list. Assign a region and a tool (Power, Vine, Key, Bor), then tick it off when done.</li>" +
+          "<li><b>To-do</b> is a per-account task list. Assign a region and a tool (Power, Vine, Key, Drill), then tick it off when done.</li>" +
           "<li><b>Gift Code</b> keeps your code list. Tick the accounts that redeemed each code and copy a code with <b>⧉</b>. Codes move to Expired automatically after their date passes.</li>" +
           "</ul>",
       },
