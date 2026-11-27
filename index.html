@@ -393,16 +393,6 @@ var EN={
 "Data dipulihkan dari file":"Data restored from file",
 "File backup tidak valid.":"Invalid backup file.",
 "Currency tersimpan":"Currency saved",
-"Menyimpan ke cloud…":"Saving to cloud…",
-"☁ Tersimpan di cloud ·":"☁ Saved to cloud ·",
-"⚠ Gagal simpan ke cloud (":"⚠ Failed to save to cloud (",
-"). Data masih ada di browser.":"). Your data is still in this browser.",
-"Menghubungkan ke cloud…":"Connecting to cloud…",
-"Cloud tidak tersedia · data hanya di browser":"Cloud unavailable · data is only in this browser",
-"Login diperlukan untuk simpan ke cloud · data hanya di browser":"Login required to save to the cloud · data is only in this browser",
-"☁ Data dimuat dari cloud ·":"☁ Data loaded from cloud ·",
-"☁ Cloud siap · belum ada data tersimpan":"☁ Cloud ready · no saved data yet",
-"Cloud gagal dimuat · data hanya di browser":"Cloud failed to load · data is only in this browser",
 "Akun 1":"Account 1"
 };
 function TX(s){if(LANG!=='en')return s;var m=/^(\s*)([\s\S]*?)(\s*)$/.exec(s),v=Object.prototype.hasOwnProperty.call(EN,m[2])?EN[m[2]]:null;return v==null?s:m[1]+v+m[3]}
@@ -984,28 +974,6 @@ document.addEventListener('change',function(ev){
  save();render()});
 setInterval(tick,30000);render();
 
-var DBDOC=null,DBTM=0,DBBUSY=false,DBDIRTY=false;
-function dbStatus(t){var e=document.getElementById('dbst');if(e)e.textContent=t}
-function dbNow(){var d=new Date();return('0'+d.getHours()).slice(-2)+':'+('0'+d.getMinutes()).slice(-2)}
-function dbPush(){if(!DBDOC)return;DBDIRTY=true;clearTimeout(DBTM);DBTM=setTimeout(dbFlush,800)}
-function dbFlush(){if(!DBDOC||DBBUSY||!DBDIRTY)return;DBBUSY=true;DBDIRTY=false;dbStatus(TX('Menyimpan ke cloud…'));
- var snap;try{snap=JSON.parse(JSON.stringify(S))}catch(e){DBBUSY=false;return}
- DBDOC.set(snap).then(function(){DBBUSY=false;dbStatus(TX('☁ Tersimpan di cloud · ')+dbNow());if(DBDIRTY)dbFlush()},function(e){DBBUSY=false;DBDIRTY=true;dbStatus(TX('⚠ Gagal simpan ke cloud (')+((e&&e.code)||'error')+TX('). Data masih ada di browser.'))})}
-function dbAdopt(o){S=o;S.plan=S.plan||[];S.jobs=S.jobs||[];S.log=S.log||{};S.codes=S.codes||[];S.seedC=1;try{localStorage.setItem(K,JSON.stringify(S))}catch(e){}render()}
-(async function(){
- dbStatus(TX('Menghubungkan ke cloud…'));
- try{
-  var c=window.claude;if(!c||!c.use){dbStatus(TX('Cloud tidak tersedia · data hanya di browser'));return}
-  var u=await c.use('user'),d=await c.use('db');
-  if(!u||!d){dbStatus(TX('Cloud tidak tersedia · data hanya di browser'));return}
-  var id=await u.id();if(!id){dbStatus(TX('Login diperlukan untuk simpan ke cloud · data hanya di browser'));return}
-  var ref=d.collection('data/users/'+id).doc('state');
-  var snap=await ref.get(),r=snap.exists?snap.data():null;
-  if(r&&r.accounts&&(r._t||0)>(S._t||0)){DBDOC=ref;dbAdopt(JSON.parse(JSON.stringify(r)));dbStatus(TX('☁ Data dimuat dari cloud · ')+dbNow())}
-  else if(r&&r.accounts&&!S._t){DBDOC=ref;dbAdopt(JSON.parse(JSON.stringify(r)));dbStatus(TX('☁ Data dimuat dari cloud · ')+dbNow())}
-  else{DBDOC=ref;if(S._t){DBDIRTY=true;dbFlush()}else dbStatus(TX('☁ Cloud siap · belum ada data tersimpan'))}
- }catch(e){DBDOC=null;dbStatus(TX('Cloud gagal dimuat · data hanya di browser'))}
-})();
 document.addEventListener('keydown',function(ev){if(ev.key!=='Enter'||ev.isComposing)return;var t=ev.target;if(!t||t.tagName!=='INPUT'||t.type==='checkbox'||t.id==='pq')return;var id=t.id||'',sel=null;if(/^e_/.test(id))sel='[data-a="saveDay"]';else if(/^q_/.test(id))sel='[data-a="saveQuick"][data-id="'+id.split('_')[1]+'"]';else if(/^s_/.test(id))sel='[data-a="saveAcc"][data-id="'+id.split('_')[1]+'"]';else if(/^pn_/.test(id))sel='[data-a="addPlan2"]';else if(/^pe_/.test(id))sel='[data-a="savePlan"]';else if(/^jb_/.test(id))sel='[data-a="addJob2"]';else if(/^je_/.test(id))sel='[data-a="saveJob"]';var b=sel?document.querySelector(sel):null;if(!b){var n=t.parentElement;while(n&&n.id!=='view'){if((n.classList.contains('form')||n.classList.contains('row'))&&n.querySelector('[data-a]')){b=n.querySelector('[data-a]');break}n=n.parentElement}}if(b){ev.preventDefault();b.click()}});
 document.addEventListener('input',function(ev){var t=ev.target;if(t&&t.id==='tdn'){var s=document.getElementById('tdt');if(s&&!s.dataset.m)s.value=guessTool(t.value)}if(t&&/^qt_/.test(t.id)){var s2=document.getElementById('qtl_'+t.id.slice(3));if(s2&&!s2.dataset.m)s2.value=guessTool(t.value)}});
 </script>
